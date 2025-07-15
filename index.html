@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <title>Uma_Musuko</title>
+  <style>
+  input{
+    display : inline-block;
+    width : 100px;
+    height: 25px;
+  }
+  
+  h3{
+    display : inline-block;
+  }
+  
+  body{
+    background : #111;
+    color : white;
+    margin-top : 100px;
+  }
+  
+  button{
+    width : 200px;
+    height : 50px;
+    background: white;
+    border-top: 3px solid gray;
+    border-right: 3px solid gray;
+    color: white;
+    font-size: 2em;
+    background: #333;
+  }
+
+  select{
+    background: white;
+    font-size: 1em;
+  }
+
+  button:active{
+    border-left: 3px solid gray;
+    border-bottom: 3px solid gray;
+    border-top: none;
+    border-right: none;
+
+  }
+
+  .name{
+    background: rebeccapurple;
+    padding: 2px;
+    margin: 2px;
+    border-radius: 2px;
+  }
+  
+  .square{
+    border: solid 2px #333;
+    display: inline-block;
+    width: 33px;
+    height: 33px;
+  }
+  
+  .red{
+    background: hotpink;
+  }
+  
+  .blue{
+    background: dodgerblue;
+  }
+  
+  .green{
+    background: darkorange;
+  }
+  </style>
+</head>
+<audio id="ost" src="music.mp3"></audio>
+<body>
+<center><button onclick="run2()">Go !</button><br><br>
+<h3><span class='name'>Nico</span><span id='nicmon'>100</span>€</h3> <input id="nic" type="number" placeholder="€€€">
+<select id='nicocol'>
+  <option value="pink">🎀</option>
+  <option value="blue">🧊</option>
+  <option value="green">🍊</option>
+</select><br>
+<h3><span class='name'>Max</span><span id='maxmon'>100</span>€</h3> <input id="max" type="number" placeholder="€€€"> <select id='maxcol'>
+  <option value="pink">🎀</option>
+  <option value="blue">🧊</option>
+  <option value="green">🍊</option>
+</select><br>
+<h3><span class='name'>Tom</span><span id='tommon'>100</span>€</h3> <input id="tom" type="number" placeholder="€€€"> <select id='tomcol'>
+  <option value="pink">🎀</option>
+  <option value="blue">🧊</option>
+  <option value="green">🍊</option>
+</select><br>
+<div id='piste'></div>
+</body><br><br><br></center>
+<script>
+let racing = false;
+let nicolas = 100;
+let maxime = 100;
+let tommy = 100;
+let nicobet = 0;
+let nicobetc = "";
+let maxbetc = "";
+let tombetc = "";
+let maxbet = 0;
+let tombet = 0;
+let redn = 0;
+let bluen = 0;
+let greenn = 0;
+let ost = document.getElementById('ost');
+for(i=0; i < 10; i++){
+  document.getElementById("piste").innerHTML += "<div class='square red' id='redtile_"+i+"'></div>";
+}
+document.getElementById("piste").innerHTML += "<br>";
+for(i=0; i < 10; i++){
+  document.getElementById("piste").innerHTML += "<div class='square blue' id='bluetile_"+i+"'></div>";
+}
+document.getElementById("piste").innerHTML += "<br>";
+for(i=0; i < 10; i++){
+  document.getElementById("piste").innerHTML += "<div class='square green' id='greentile_"+i+"'></div>";
+}
+
+  function run(){
+    if(racing == false){return}
+    var num = Math.floor(Math.random()*3)+1;
+    if(num == 1){red();}
+    if(num == 2){blue();}
+    if(num == 3){green();}
+    var nicoval = document.getElementById("nic").value;
+    var maxval = document.getElementById("max").value;
+    var tomval = document.getElementById("tom").value;
+    if(nicoval != ""){nicolas = nicolas-Number(nicoval); nicobet = nicoval;document.getElementById("nic").value = "";nicobetc = nicocol.value;}
+    if(maxval != ""){maxime = maxime-Number(maxval); maxbet = maxval;document.getElementById("max").value = "";maxbetc = maxcol.value;}
+    if(tomval != ""){tommy = tommy-Number(tomval); tombet = tomval;document.getElementById("tom").value = "";tombetc = tomcol.value;}
+    document.getElementById("nicmon").innerHTML = nicolas;
+    document.getElementById("maxmon").innerHTML = maxime;
+    document.getElementById("tommon").innerHTML = tommy;
+    }
+  document.getElementById("redtile_"+redn).style.background = "url('horse.png') 50% 50% / 33px 33px no-repeat, #EF59A4";
+  document.getElementById("bluetile_"+bluen).style.background = "url('horse.png') 50% 50% / 33px 33px no-repeat, #0e80Ef";
+  document.getElementById("greentile_"+greenn).style.background = "url('horse.png') 50% 50% / 33px 33px no-repeat, #ef7c00";
+  function red(){
+    if(redn != -1){document.getElementById("redtile_"+redn).style.background = "hotpink";}
+    redn++
+    document.getElementById("redtile_"+redn).style.background = "url('horse.png') 50% 50% / 33px 33px no-repeat, #EF59A4";
+    if(redn == 9){
+      racing = false;
+      setTimeout(function(){alert("ROSE GAGNE !")},500);
+      if(nicobetc == "pink"){nicolas = nicolas + nicobet*2;}
+      if(maxbetc == "pink"){maxime = maxime + maxbet*2;}
+      if(tombetc == "pink"){tommy = tommy + tombet*2;}
+      tombetc = "";
+      maxbetc = "";
+      nicobetc = "";
+      setTimeout(reset, 1000);
+    }
+  }
+  
+  function blue(){
+    if(bluen != -1){document.getElementById("bluetile_"+bluen).style.background = "dodgerblue";}
+    bluen++
+    document.getElementById("bluetile_"+bluen).style.background = "url('horse.png') 50% 50% / 33px 33px no-repeat, #0e80Ef";
+    if(bluen == 9){
+    racing = false;
+    setTimeout(function(){alert("BLEU GAGNE !")},500)
+    if(nicobetc == "blue"){nicolas = nicolas + nicobet*2;}
+     if(maxbetc == "blue"){maxime = maxime + maxbet*2;}
+      if(tombetc == "blue"){tommy = tommy + tombet*2;}
+      tombetc = "";
+      maxbetc = "";
+      nicobetc = "";
+      setTimeout(reset, 1000);
+    }
+  }
+  
+  function green(){
+    if(greenn != -1){document.getElementById("greentile_"+greenn).style.background = "darkorange";}
+    greenn++
+    document.getElementById("greentile_"+greenn).style.background = "url('horse.png') 50% 50% / 33px 33px no-repeat, #ef7c00";
+    if(greenn == 9){
+    racing = false;
+    setTimeout(function(){alert("ORANGE GAGNE !")},500)
+      if(nicobetc == "green"){nicolas = nicolas + nicobet*2;}
+      if(maxbetc == "green"){maxime = maxime + maxbet*2;}
+      if(tombetc == "green"){tommy = tommy + tombet*2;}
+      tombetc = "";
+      maxbetc = "";
+      nicobetc = "";
+      setTimeout(reset, 1000);
+    }
+  }
+  
+  function reset(){
+    redn = -1;
+    bluen = -1;
+    greenn = -1;
+    for(i=0; i < 10; i++){
+      document.getElementById("redtile_"+i).style.background = "#EF59A4";
+      document.getElementById("bluetile_"+i).style.background = "#0e80Ef";
+      document.getElementById("greentile_"+i).style.background = "#ef7c00";
+    }
+    red();
+    blue();
+    green();
+  }
+  
+  function run2(){
+    ost.pause();
+    ost.currentTime = 0;
+    ost.play();
+    racing = true;
+  }
+  
+  setInterval(run, 500);
+ 
+</script>
+</html>
